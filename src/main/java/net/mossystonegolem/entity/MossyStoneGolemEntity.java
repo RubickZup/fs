@@ -81,18 +81,26 @@ public class MossyStoneGolemEntity extends GolemEntity implements GeoEntity {
         return new SluggishBodyControl(this);
     }
 
+    /**
+     * Rest position of the {@code back_mount} bone, in model space and in blocks.
+     * The mount hangs off the rotated body bone (pivot [0, 16, 0], 8 degree pitch), which places it
+     * at [0, 26.77, 9.59] model units - i.e. 1.673 blocks up and 0.599 blocks behind the golem's origin.
+     */
+    private static final double MOUNT_HEIGHT = 1.673;
+    private static final double MOUNT_BACK = 0.599;
+
+    /** World space position of the chain's anchor point on the golem's back. */
+    public Vec3d getChainAnchor() {
+        Vec3d offset = VerletChain.modelToWorldOffset(new Vec3d(0.0, MOUNT_HEIGHT, MOUNT_BACK), this.bodyYaw);
+        return new Vec3d(this.getX() + offset.x, this.getY() + offset.y, this.getZ() + offset.z);
+    }
+
     @Override
     public void tick() {
         super.tick();
 
-        // Verlet physics simulation for dragging chain and bell
-        double yawRad = Math.toRadians(this.bodyYaw);
-        double backDist = 0.45;
-        double anchorX = this.getX() + Math.sin(yawRad) * backDist;
-        double anchorY = this.getY() + 1.625;
-        double anchorZ = this.getZ() - Math.cos(yawRad) * backDist;
-
-        this.chain.tick(this.getWorld(), new Vec3d(anchorX, anchorY, anchorZ), this.bodyYaw);
+        // Verlet physics simulation for the dragged chain and bell
+        this.chain.tick(this.getWorld(), this, this.getChainAnchor());
     }
 
     @Override
