@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "mossystonegolem",
+  "version": "${version}",
+  "name": "Mossy Stone Golem",
+  "description": "Adds the ancient, sluggish Mossy Stone Golem with physical chain & bell dragging physics and AoE ground slam attacks.",
+  "authors": [
+    "alex"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/mossystonegolem/textures/item/mossy_stone_golem_spawn_egg.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.mossystonegolem.MossyStoneGolemMod"
+    ],
+    "client": [
+      "net.mossystonegolem.client.MossyStoneGolemClientMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "geckolib": "*"
+  }
+}

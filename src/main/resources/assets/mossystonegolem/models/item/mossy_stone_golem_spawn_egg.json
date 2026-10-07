@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mossystonegolem:item/mossy_stone_golem_spawn_egg"
+  }
+}
